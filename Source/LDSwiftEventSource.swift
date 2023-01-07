@@ -250,6 +250,9 @@ class EventSourceDelegate: NSObject, URLSessionDataDelegate {
             }
         } else {
             logger.log(.info, "Connection unexpectedly closed.")
+            
+            // close connection on unexpected err.
+            self.stop()
         }
 
         if readyState == .open {
