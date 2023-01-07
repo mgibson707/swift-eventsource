@@ -277,8 +277,11 @@ class EventSourceDelegate: NSObject, URLSessionDataDelegate {
             return
         }
 
+        //TODO: handle by http code better
+        
         // swiftlint:disable:next force_cast
         let httpResponse = response as! HTTPURLResponse
+        print("Response stream recieved \(httpResponse.statusCode) response with headers: \(httpResponse.allHeaderFields) \n")
         if (200..<300).contains(httpResponse.statusCode) {
             reconnectionTimer.connectedTime = Date()
             readyState = .open
