@@ -253,6 +253,8 @@ class EventSourceDelegate: NSObject, URLSessionDataDelegate {
             
             // close connection on unexpected err.
             self.stop()
+            // return here stops stream but now retry now completely unavail.
+            return
         }
 
         if readyState == .open {
