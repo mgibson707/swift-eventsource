@@ -8,7 +8,7 @@ class EventParser {
         static let retryLabel: Substring = "retry"
     }
 
-    private let handler: EventHandler
+    private var handler: EventHandler
 
     private var data: String = ""
     private var eventType: String = ""

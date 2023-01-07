@@ -61,7 +61,7 @@ public protocol EventHandler {
      - Parameter eventType: The type of the event.
      - Parameter messageEvent: The data for the event.
      */
-    func onMessage(eventType: String, messageEvent: MessageEvent)
+    mutating func onMessage(eventType: String, messageEvent: MessageEvent)
 
     /**
      EventSource calls this method when it has received a comment line from the stream.
