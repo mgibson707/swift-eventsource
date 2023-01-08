@@ -11,8 +11,11 @@ import FoundationNetworking
  */
 @available(macOS 10.15, *)
 public class EventSource {
+    private var currentStreamToken = CurrentValueSubject<Codable?, Error>(nil)
     
-    public var streamPublisher: AnyPublisher<any Codable, Error>
+    lazy public var streamPublisher: AnyPublisher<(any Codable)?, Error> = {
+        currentStreamToken.eraseToAnyPublisher()
+    }()
     private let esDelegate: EventSourceDelegate
 
     /**
@@ -135,6 +138,7 @@ class ReconnectionTimer {
 }
 
 // MARK: EventSourceDelegate
+@available(macOS 10.15, *)
 class EventSourceDelegate: NSObject, URLSessionDataDelegate {
     private let delegateQueue: DispatchQueue = DispatchQueue(label: "ESDelegateQueue")
     private let logger = Logs()
