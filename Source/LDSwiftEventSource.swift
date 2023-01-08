@@ -11,7 +11,7 @@ import FoundationNetworking
  */
 @available(macOS 10.15, *)
 public class EventSource {
-    private var currentStreamToken = CurrentValueSubject<Codable?, Error>(nil)
+    public var currentStreamToken = CurrentValueSubject<Codable?, Error>(nil)
     
     lazy public var streamPublisher: AnyPublisher<(any Codable)?, Error> = {
         currentStreamToken.eraseToAnyPublisher()
