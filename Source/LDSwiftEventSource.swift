@@ -1,5 +1,5 @@
 import Foundation
-
+import Combine
 #if os(Linux)
 import FoundationNetworking
 #endif
@@ -9,7 +9,10 @@ import FoundationNetworking
 
  See the [Server-Sent Events spec](https://html.spec.whatwg.org/multipage/server-sent-events.html) for more details.
  */
+@available(macOS 10.15, *)
 public class EventSource {
+    
+    public var streamPublisher: AnyPublisher<any Codable, Error>
     private let esDelegate: EventSourceDelegate
 
     /**
