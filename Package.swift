@@ -5,10 +5,10 @@ import PackageDescription
 let package = Package(
     name: "LDSwiftEventSource",
     platforms: [
-        .iOS(.v11),
+        .iOS("15.0"),
         .macOS(.v10_13),
-        .watchOS(.v4),
-        .tvOS(.v11)
+        .watchOS("6.0"),
+        .tvOS(.v12)
     ],
     products: [
         .library(name: "LDSwiftEventSource", targets: ["LDSwiftEventSource"]),
