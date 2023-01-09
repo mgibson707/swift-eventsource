@@ -6,7 +6,7 @@ let package = Package(
     name: "LDSwiftEventSource",
     platforms: [
         .iOS("15.0"),
-        .macOS(.v10_13),
+        .macOS("10.15"),
         .watchOS("6.0"),
         .tvOS(.v12)
     ],

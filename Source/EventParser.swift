@@ -84,6 +84,7 @@ class EventParser {
         // remove the last LF
         _ = data.popLast()
         let messageEvent = MessageEvent(data: data, lastEventId: lastEventId)
+        handler.currentStreamMessage.send(messageEvent)
         handler.onMessage(eventType: eventType.isEmpty ? "message" : eventType, messageEvent: messageEvent)
         data = ""
         eventType = ""

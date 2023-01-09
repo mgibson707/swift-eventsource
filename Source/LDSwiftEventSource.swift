@@ -13,8 +13,8 @@ import FoundationNetworking
 public class EventSource {
     public var currentStreamToken = CurrentValueSubject<Codable?, Error>(nil)
     
-    lazy public var streamPublisher: AnyPublisher<(any Codable)?, Error> = {
-        currentStreamToken.eraseToAnyPublisher()
+    lazy public var streamPublisher: AnyPublisher<Codable, Error> = {
+        currentStreamToken.compactMap({$0}).eraseToAnyPublisher()
     }()
     private let esDelegate: EventSourceDelegate
 

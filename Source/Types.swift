@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 
 /**
  Type for a function that will be notified when the `EventSource` client encounters a connection failure.
@@ -49,6 +50,8 @@ public struct MessageEvent: Equatable, Hashable {
 
 /// Protocol for an object that will receive SSE events.
 public protocol EventHandler {
+    var currentStreamMessage: CurrentValueSubject<MessageEvent?, Error> { get set }
+    
     /// EventSource calls this method when the stream connection has been opened.
     func onOpened()
 
