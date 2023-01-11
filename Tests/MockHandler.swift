@@ -1,4 +1,5 @@
 @testable import LDSwiftEventSource
+import Combine
 
 enum ReceivedEvent: Equatable {
     case opened, closed, message(String, MessageEvent), comment(String), error(Error)
@@ -22,6 +23,8 @@ enum ReceivedEvent: Equatable {
 }
 
 class MockHandler: EventHandler {
+    var currentStreamMessage: CurrentValueSubject<LDSwiftEventSource.MessageEvent?, Error> = .init(nil)
+    
     var events = EventSink<ReceivedEvent>()
 
     func onOpened() { events.record(.opened) }

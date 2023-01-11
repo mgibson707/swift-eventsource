@@ -104,12 +104,24 @@ public class EventSource {
 
          The default error handler will always attempt to reconnect on an error, unless `EventSource.stop()` is called.
          */
-        public var connectionErrorHandler: ConnectionErrorHandler = { _ in .proceed }
+        public var connectionErrorHandler: ConnectionErrorHandler
 
         /// Create a new configuration with an `EventHandler` and a `URL`
         public init(handler: EventHandler, url: URL) {
             self.handler = handler
             self.url = url
+            
+            self.connectionErrorHandler = { err in
+                // connectionErrorHandler returning .shutdown will shutdown
+                // the eventsource connection without calling the stream's `onError` fn,
+                // therefore here we send the connection error to the stream
+                // publisher so it can terminate with a failure prior
+                // to allowing the EventSource SSE object to shut itself down
+                // due to connection error.
+                handler.currentStreamMessage.send(completion: .failure(err))
+                return .shutdown
+                
+            }
         }
     }
 }
